@@ -1078,9 +1078,9 @@ $(function () {
         // Urls to communicate to backend for todos
         actions: {
             'load': '',
-            'update': '',
-            'insert': '',
-            'delete': ''
+            'update': '/index',
+            'insert': '/index',
+            'delete': '/zbla'
         },
         // Whether to show checkboxes or not
         useCheckboxes: true,

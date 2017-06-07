@@ -29,40 +29,38 @@ app.use(sessions({secret: 'zbla', saveUninitialized: false, resave: false}))
 
 .post('/inscription',urlencodedParser, function(req, res){
     user.verification(req.body.email, req.body.password, function(boolean){
-      console.log(boolean);
       if( boolean == true ){
         res.redirect('/inscription');
         // fiare aparaitre pseudo deja utilisé
       }else{
         user.register(req.body.email, req.body.password);
-        session = req.session ;
-        session.uniqueID = req.body.email;
-        res.redirect('/');
+        res.redirect('/connection');
       };
     });
     
 })
 
 .get('/connection', function(req,res,next){
+  console.log("my life is portato");
   res.render('pageapp-login.ejs');
 })
 
-.post('/connection', urlencodedParser, function(res,res,next ){
-  user.verification(req.body.email,req.body.password, function(boolean){
-      if( boolean == true){
-        user.userID;
-        console.log(user.userID);
-        res.redirect('/');
+.post('/connection', urlencodedParser, function(req,res){
+  user.connection(req.body.email,req.body.password, function(boolean){
+      session = req.session;
+      if( boolean !== null){
+        session.userId = boolean[0].id;
+        return res.redirect('/');
       }else{
-        res.redirect('/connection');
+        return res.redirect('/connection');
         //compte inexistant
-      };
+      }
     });
 })
 
 .get('/deconnection', function(req,res,next){
   req.session.destroy();
-  res.render('/');
+  res.redirect('/');
 })
 
 
@@ -74,17 +72,16 @@ app.use(sessions({secret: 'zbla', saveUninitialized: false, resave: false}))
 
 .get('/supprimer/:id', function(req,res,next){
     user.remove(req.params.id);
-    session.destroy();
-  res.render('/');
+  res.redirect('/');
 })
 
-.get('/task', function(req,res,next){
-  res.render('tasklist.ejs');
+.get('/taskslist', function(req,res,next){
+  res.render('taskslist.ejs');
 })
 
 .get('/task/supprimer/:id', function(req,res,next){
     task.remove(req.params.id);
-  res.render('/');
+  res.redirect('/');
 })
 
 
@@ -108,7 +105,7 @@ app.use(sessions({secret: 'zbla', saveUninitialized: false, resave: false}))
 
 
 .get('/task/modifier', function(req,res,next){
-  res.render('/task');
+  res.redirect('/task');
 })
 
 .post('/task/formModifer', function( req,res,next){
@@ -119,7 +116,11 @@ app.use(sessions({secret: 'zbla', saveUninitialized: false, resave: false}))
 .get('/task/add', function(req,res,next){
   session = req.session;
   task.register(req.body.title, req.body.contenu,req.body.date,session.uniqueID);
-  res.render('/task');
+  res.redirect('/task');
+})
+
+.get('/index', function(req,res,next){
+  res.redirect('/');
 })
 
 
