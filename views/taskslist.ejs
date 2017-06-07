@@ -48,16 +48,20 @@
                 </div>
                 <a href="index" class="sidebar-logo"></a>
                 <div class="sidebar-decoration"></div>
-                <ul class="sidebar-menu">
+               <ul class="sidebar-menu">
                     <li class="has-submenu"><a href="index"><i class="fa fa-home"></i>Page d'accueil<i class="fa fa-circle"></i></a></li>
                     <li class="has-submenu">
+                        <% if( !name ){ %>
                         <a class="deploy-submenu" href="#"><i class="fa fa-mobile"></i>Connexion<i class="fa fa-plus"></i></a>
+                         <% } %>
                         <ul class="submenu">
                             <li><a href="/connection"><i class="fa fa-angle-right"></i>Se connecter<i class="fa fa-circle"></i></a></li>
                             <li><a href="/inscription"><i class="fa fa-angle-right"></i>S'inscrire<i class="fa fa-circle"></i></a></li>
                         </ul>
                     </li>
+                    <% if(name ){ %>
                     <li><a href="taskslist"><i class="fa fa-pencil"></i>Taches<i class="fa fa-circle"></i></a></li>
+                    <% } %>
                     <li><a href="contact"><i class="fa fa-envelope"></i>Contacts<i class="fa fa-circle"></i></a></li>
                     <li><a href="settings"><i class="fa fa-cogs"></i>Réglages<i class="fa fa-circle"></i></a></li>
                     <li><a href="credits"><i class="fa fa-users"></i>Crédits<i class="fa fa-circle"></i></a></li>
